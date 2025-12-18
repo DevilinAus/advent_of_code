@@ -5,9 +5,6 @@ dial_instructions = []
 for line in lines:
     dial_instructions.append((line[0],(int(line[1:]))))
 
-# # #overwrite the dial instructions for testing
-# dial_instructions = [("R", 100),("R", 25)]
-
 dial_position = 50
 zero_count = 0
 DIAL_TOTAL_POSITIONS = 100
@@ -24,7 +21,6 @@ for instruction in dial_instructions:
     if dial_position == 0:
         zero_count = zero_count + 1
 
-# print(dial_position)
 print(zero_count)
 
 
