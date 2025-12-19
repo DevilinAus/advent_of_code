@@ -1,33 +1,30 @@
 def battery_check(line):
-    test_bat = line
-    print(test_bat)
 
-    big_num = 0
-    second_big_num = 0
+    first_num = 0
+    second_num = 0
+    best = 0
 
-    for i in range (len(test_bat)):
+    digits = []
+    for c in line:
+        digits.append(int(c))
+        
+    #-1 since the last number can't be the first number in a two digit sequence.
+    for i in range (len(digits) - 1):
 
-        if second_big_num > big_num:
-            big_num, second_big_num = second_big_num, big_num
+        #find the first instance of the largest number
+        if digits[i] > first_num:
+            first_num = digits[i]
 
-        current = int(test_bat[i])
-
-        if current > second_big_num:
-            # print(int(test_bat[i]))
-            second_big_num = current
-
-    joltage = str(big_num) + str(second_big_num)
-    joltage_int = int(joltage)
-
-    print(f"I think it's {joltage_int}")
-
-    return joltage_int
-
+            #second number has to be to the right
+            second_num = max(digits[i+1:]) 
     
+        best = max(best, first_num * 10 + second_num)
+
+    return best
+
 
 def main():
     indiv_joltages = []
-    max_joltage = 0
 
     with open("puzzle3_battery_joltages.txt", "r") as file:
         lines = [line.strip() for line in file]
@@ -35,11 +32,12 @@ def main():
     for line in lines:
         indiv_joltages.append(battery_check(line))
 
-    print(indiv_joltages)
+    total_joltage = sum(indiv_joltages)
 
-    for j in indiv_joltages:
-        max_joltage = max_joltage + indiv_joltages[j]
-
-    print(max_joltage)
+    print(f"Result = {total_joltage}")
 
 main()
+
+
+
+
